@@ -37,7 +37,7 @@ export function HeroSection() {
           alt="EmeDiaClub Logo"
           width={160}
           height={160}
-          className="rounded-2xl"
+          className="rounded-2xl mix-blend-lighten"
           priority
         />
 

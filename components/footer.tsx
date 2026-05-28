@@ -39,7 +39,7 @@ const socialIcons = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#0A0A0A] border-t border-[#1E1E1E] pt-16 pb-32">
+    <footer className="bg-[#0A0A0A] border-t border-[#1E1E1E] pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         {/* Logo */}
         <div className="flex flex-col items-center mb-12">

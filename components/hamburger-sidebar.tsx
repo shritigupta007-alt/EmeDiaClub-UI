@@ -49,7 +49,7 @@ export function HamburgerSidebar({ activePage, onNavigate }: HamburgerSidebarPro
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,168,0,0.3)] group"
+        className="fixed top-5 right-5 z-50 md:hidden flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,168,0,0.3)] group"
         style={{
           background: "rgba(255,255,255,0.06)",
           border: "1px solid rgba(255,255,255,0.12)",
@@ -102,12 +102,13 @@ export function HamburgerSidebar({ activePage, onNavigate }: HamburgerSidebarPro
             {/* Logo */}
             <div className="flex justify-center pt-8 pb-4">
               <Image
-                src="/images/logo-emedia.jpeg"
-                alt="EmeDiaClub"
-                width={80}
-                height={80}
-                className="rounded-xl"
-              />
+              src="/images/logo-emedia.jpeg"
+              alt="EmeDiaClub"
+              width={80}
+              height={80}
+              className="rounded-xl mt-4"
+              style={{ background: "transparent" }}
+               />
             </div>
 
             {/* Tagline */}
@@ -125,7 +126,7 @@ export function HamburgerSidebar({ activePage, onNavigate }: HamburgerSidebarPro
             <div className="mx-6 my-4 h-px bg-gold/30" />
 
             {/* Navigation Links */}
-            <nav className="flex-1 overflow-y-auto px-4">
+            <nav className="flex-1 px-4">
               {navLinks.map((link) => {
                 const Icon = link.icon
                 const isActive = activePage === link.id

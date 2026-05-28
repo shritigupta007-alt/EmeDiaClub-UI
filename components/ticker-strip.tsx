@@ -1,7 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
-
 const tickerItems = [
   "Shark Tank India reject raises ₹50Cr 🔥",
   "Founder sleeps 4 hours sends 47 emails",
@@ -14,12 +12,7 @@ const tickerItems = [
 
 export function TickerStrip() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      className="w-full h-12 bg-card overflow-hidden"
-    >
+    <div className="w-full h-12 bg-card overflow-hidden">
       <div className="animate-marquee flex items-center h-full whitespace-nowrap">
         {[...tickerItems, ...tickerItems].map((item, index) => (
           <span key={index} className="flex items-center">
@@ -30,6 +23,6 @@ export function TickerStrip() {
           </span>
         ))}
       </div>
-    </motion.div>
+    </div>
   )
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { GlassNavBar } from "@/components/glass-nav-bar"
 import { HeroSection } from "@/components/hero-section"
@@ -14,6 +13,7 @@ import { JobsPage } from "@/components/jobs-page"
 import { ServicesPage } from "@/components/services-page"
 import { NewsletterPage } from "@/components/newsletter-page"
 import { HamburgerSidebar } from "@/components/hamburger-sidebar"
+import { useState, useEffect } from "react"
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -23,6 +23,9 @@ const pageVariants = {
 
 export default function HomePage() {
   const [activePage, setActivePage] = useState("home")
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [activePage])
 
   const renderPage = () => {
     switch (activePage) {
@@ -102,7 +105,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden pb-28">
+    <main className="min-h-screen bg-background overflow-x-hidden pt-16 pb-8">
       <HamburgerSidebar activePage={activePage} onNavigate={setActivePage} />
       <AnimatePresence mode="wait">
         {renderPage()}

@@ -2,6 +2,7 @@
 
 import { Home, Smile, Briefcase, Zap, Mail } from "lucide-react"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 interface GlassNavBarProps {
   activePage: string
@@ -17,50 +18,73 @@ const navItems = [
 ]
 
 export function GlassNavBar({ activePage, onNavigate }: GlassNavBarProps) {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <motion.nav
-      initial={{ y: 100, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
-      className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 glass rounded-3xl px-6 py-3 md:px-8 md:py-4"
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0D0D0D]/90 backdrop-blur-md border-b border-white/10 py-3"
+          : "bg-transparent py-5"
+      }`}
     >
-      <div className="flex items-center gap-4 md:gap-8">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = activePage === item.id
-          return (
-            <button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className="flex flex-col items-center gap-1 group relative"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative"
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        {/* LOGO TEXT */}
+        <button
+          onClick={() => onNavigate("home")}
+          className="font-mono text-sm font-bold text-primary tracking-widest uppercase"
+        >
+          EMe<span className="text-white">Dia</span>Club
+        </button>
+
+        {/* NAV LINKS */}
+        <div className="flex items-center gap-1 md:gap-2">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            const isActive = activePage === item.id
+            return (
+              <button
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-full text-xs
+                            font-mono uppercase tracking-wider transition-all duration-200
+                            ${isActive
+                              ? "bg-primary/10 text-primary"
+                              : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                            }`}
               >
-                <Icon
-                  className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-200 ${
-                    isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary"
-                  }`}
-                />
+                <Icon className="w-4 h-4" />
+                <span className="hidden md:inline">{item.label}</span>
                 {isActive && (
                   <motion.div
                     layoutId="navIndicator"
-                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full"
+                    className="w-1 h-1 rounded-full bg-primary"
                   />
                 )}
-              </motion.div>
-              <span
-                className={`text-[10px] font-mono uppercase tracking-wider transition-colors duration-200 ${
-                  isActive ? "text-primary" : "text-muted-foreground group-hover:text-primary"
-                }`}
-              >
-                {item.label}
-              </span>
-            </button>
-          )
-        })}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => onNavigate("newsletter")}
+          className="bg-primary text-black text-xs font-bold px-4 py-2
+                     rounded-full uppercase tracking-wider hidden md:block"
+        >
+          Subscribe 🔥
+        </motion.button>
       </div>
     </motion.nav>
   )
